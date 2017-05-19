@@ -17,3 +17,6 @@ build/
 dist/
 yandextank.egg-info/
 setuptools-*
+logs/
+Dockerfile
+mg
