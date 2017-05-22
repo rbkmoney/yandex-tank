@@ -59,10 +59,8 @@ class MinigunPlugin(AbstractPlugin, AggregateResultListener):
         self.api_url = self.get_option("api_url")
         self.api_port = self.get_option("api_port")
 
-        if not self.phout:
-            return
-
-        self.core.add_artifact_file(self.phout)
+        if self.phout:
+            self.core.add_artifact_file(self.phout)
 
     def prepare_test(self):
         aggregator = None
@@ -110,7 +108,6 @@ class MinigunPlugin(AbstractPlugin, AggregateResultListener):
         process_stderr_file = self.core.mkstemp(".log", "minigun_")
         self.core.add_artifact_file(process_stderr_file)
         self.process_stderr = open(process_stderr_file, 'w')
-        print(args)
         self.process = subprocess.Popen(
             args,
             stderr=self.process_stderr,
@@ -137,7 +134,7 @@ class MinigunPlugin(AbstractPlugin, AggregateResultListener):
         return retcode
 
     def get_info(self):
-        return None
+        pass
 
     def aggregate_second(self, second_aggregate_data):
         pass

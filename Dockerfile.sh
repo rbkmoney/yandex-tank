@@ -1,9 +1,8 @@
 #!/bin/bash
 cat <<EOF
 FROM $BASE_IMAGE
-MAINTAINER Rybek Rbkyev <r.rbkyev@rbkmoney.com>
+MAINTAINER Dmitry Manik <d.manik@rbkmoney.com>
 ADD . /tmp/yandex-tank
-ENV DEBIAN_FRONTEND noninteractive
 RUN pip install -e /tmp/yandex-tank/ && \
     pip install yatank-online && \
     cp /tmp/yandex-tank/minigun/_build/default/bin/minigun /tmp/yandex-tank/mg
@@ -27,8 +26,6 @@ LABEL com.rbkmoney.$SERVICE_NAME.parent=$BASE_IMAGE_NAME \
           echo $(git name-rev --name-only HEAD); \
         fi)
 WORKDIR /tmp/yandex-tank
-# ENTRYPOINT ["bash"]
 ENTRYPOINT ["yandex-tank"]
-# CMD ["--lock-dir", "/tmp", "-c", "/tmp/yandex-tank/load.ini", "-o", "phantom.connection_test=0"]
 CMD ["--lock-dir", "/tmp", "-o", "phantom.connection_test=0"]
 EOF
